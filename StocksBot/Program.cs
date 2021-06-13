@@ -15,9 +15,10 @@ namespace StocksBot
 
         static async Task MainAsync()
         {
+            
             var client = new DiscordClient(new DiscordConfiguration()
             {
-                Token = "ODQ4NjI0MDMxNTkwNjQ1Nzkw.YLPUtw.deU5PBjYZVC42CEYHNGggLlVKcE",
+                Token = System.IO.File.ReadAllLines(@"D:\\ASP_NET\\DiscordBot\\StocksBot\\tokens.txt")[0],
                 TokenType = TokenType.Bot,
                 Intents = DiscordIntents.AllUnprivileged
             });
