@@ -12,14 +12,10 @@ namespace StocksBot.Modules
     {
         private static readonly HttpClient client = new();
 
-        private readonly string stockToken = System.IO.File.ReadAllLines(@"D:\\ASP_NET\\DiscordBot\\StocksBot\\tokens.txt")[1];
+        private readonly string stockToken = System.IO.File.ReadAllLines(@"D:\\ASP_NET\\DiscordBot\\StocksBot\\tokens.txt")[3];
 
-        /// <summary>
-        /// Check current and open price
-        /// </summary>
-        /// <param name="ticker">Stock ticker</param>
-        /// <returns></returns>
         [Command("price")]
+        [Description("Get information about today's pricing")]
         public async Task TickerCommand(CommandContext context, string ticker)
         {
             ticker = ticker.ToUpper();
@@ -43,6 +39,7 @@ namespace StocksBot.Modules
         /// <param name="ticker"></param>
         /// <returns></returns>
         [Command("summary")]
+        [Description("Overall information about a stock")]
         public async Task SummaryCommand(CommandContext context, string ticker)
         {
             await context.RespondAsync("Not supported yet");

@@ -18,7 +18,7 @@ namespace StocksBot
             
             var client = new DiscordClient(new DiscordConfiguration()
             {
-                Token = System.IO.File.ReadAllLines(@"D:\\ASP_NET\\DiscordBot\\StocksBot\\tokens.txt")[0],
+                Token = System.IO.File.ReadAllLines(@"D:\\ASP_NET\\DiscordBot\\StocksBot\\tokens.txt")[1],
                 TokenType = TokenType.Bot,
                 Intents = DiscordIntents.AllUnprivileged
             });
