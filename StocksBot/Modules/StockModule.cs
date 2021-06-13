@@ -12,7 +12,7 @@ namespace StocksBot.Modules
     {
         private static readonly HttpClient client = new();
 
-        readonly string stockToken = System.IO.File.ReadAllText("D:\\ASP_NET\\DiscordBot\\StocksBot\\StocksBot\\token.txt");
+        readonly string stockToken = System.IO.File.ReadAllText("D:\\ASP_NET\\DiscordBot\\StocksBot\\token.txt");
 
         /// <summary>
         /// Check current and open price
