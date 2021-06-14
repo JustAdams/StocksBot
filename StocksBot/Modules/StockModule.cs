@@ -1,10 +1,11 @@
 ﻿using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Text.Json;
 using StocksBot.Items;
+using System.Net.Http;
 using System.Text;
+using System.Linq;
+using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace StocksBot.Modules
 {
@@ -26,16 +27,16 @@ namespace StocksBot.Modules
         {
             ticker = ticker.ToUpper();
 
-            var stringTask = client.GetStringAsync($"https://finnhub.io/api/v1/quote?symbol={ticker}&token={stockToken}");
-            var msg = await stringTask;
+            var res = client.GetStringAsync($"https://finnhub.io/api/v1/quote?symbol={ticker}&token={stockToken}");
+            var msg = await res;
 
             StockObject stockObject = JsonSerializer.Deserialize<StockObject>(msg);
 
-            StringBuilder response = new StringBuilder($"{ticker}\n");
-            response.Append($"Current Price: ${stockObject.CurrentPrice}\n");
-            response.Append($"Open Price: ${stockObject.OpenPrice}\n");
+            StringBuilder sb = new StringBuilder($"{ticker}\n");
+            sb.Append($"Current Price: ${stockObject.CurrentPrice}\n");
+            sb.Append($"Open Price: ${stockObject.OpenPrice}\n");
 
-            await context.RespondAsync(response.ToString());
+            await context.RespondAsync(sb.ToString());
         }
 
         [Command("summary")]
@@ -52,6 +53,25 @@ namespace StocksBot.Modules
             await context.RespondAsync("Not supported yet");
         }
 
+        [Command("trending")]
+        [Description("Top stocks on Stocktwits")]
+        public async Task TrendingCommand(CommandContext context, int count = 10)
+        {
+            var res = client.GetStringAsync($"https://api.stocktwits.com/api/2/trending/symbols.json");
+            var msg = await res;
+
+            StTrendingObject trendingObject = JsonSerializer.Deserialize<StTrendingObject>(msg);
+            var results = trendingObject.Symbols.Take(count);
+
+            StringBuilder sb = new StringBuilder("ST Trending\n");
+            sb.Append("------------");
+
+            foreach (var item in results)
+            {
+                sb.Append($"\n{item.Symbol}   Watch Count: {item.WatchCount}");
+            }
+            await context.RespondAsync(sb.ToString());
+        }
     }
     
 }
