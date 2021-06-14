@@ -30,6 +30,7 @@ namespace StocksBot
 
             commands.RegisterCommands<ChatModule>();
             commands.RegisterCommands<StockModule>();
+            commands.RegisterCommands<CryptoModule>();
 
             await client.ConnectAsync();
             await Task.Delay(-1);
