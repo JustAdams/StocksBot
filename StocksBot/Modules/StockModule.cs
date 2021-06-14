@@ -15,6 +15,12 @@ namespace StocksBot.Modules
         private readonly string stockToken = System.IO.File.ReadAllLines(@"D:\\ASP_NET\\DiscordBot\\StocksBot\\tokens.txt")[3];
 
         [Command("price")]
+        public async Task TickerCommand(CommandContext context)
+        {
+            await context.RespondAsync("Enter a stock symbol after the !price command");
+        }
+
+        [Command("price")]
         [Description("Get information about today's pricing")]
         public async Task TickerCommand(CommandContext context, string ticker)
         {
@@ -32,12 +38,13 @@ namespace StocksBot.Modules
             await context.RespondAsync(response.ToString());
         }
 
-        /// <summary>
-        /// Get an overview of a stock with its current price, volume, and short interest
-        /// </summary>
-        /// <param name="context"></param>
-        /// <param name="ticker"></param>
-        /// <returns></returns>
+        [Command("summary")]
+        [Description("Overall information about a stock")]
+        public async Task SummaryCommand(CommandContext context)
+        {
+            await context.RespondAsync("Enter a stock symbol after the !summary command");
+        }
+
         [Command("summary")]
         [Description("Overall information about a stock")]
         public async Task SummaryCommand(CommandContext context, string ticker)
