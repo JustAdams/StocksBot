@@ -25,7 +25,7 @@ namespace StocksBot
 
             var commands = client.UseCommandsNext(new CommandsNextConfiguration()
             {
-                StringPrefixes = new[] { "!" }
+                StringPrefixes = new[] { "$" }
             });
 
             commands.RegisterCommands<ChatModule>();
